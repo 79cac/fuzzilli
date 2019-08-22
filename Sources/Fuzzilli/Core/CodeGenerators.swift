@@ -239,6 +239,11 @@ public func PhiGenerator(_ b: ProgramBuilder) {
     b.phi(b.randVar())
 }
 
+public func InterestingGenerator(_ b: ProgramBuilder) {
+    //Swift.print("InterestingGenerator")
+    b.InterestingOP()
+}
+
 public func ReassignmentGenerator(_ b: ProgramBuilder) {
     if let output = b.randVar(ofGuaranteedType: .phi(of: .anything)) {
         let input = b.randVar()

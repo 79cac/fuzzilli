@@ -92,6 +92,8 @@ public struct AbstractInterpreter {
             break
         case is EndWith:
             break
+        case is InterestingOP1:
+            break
         default:
             assert(instr.isSimple)
         }
@@ -209,7 +211,10 @@ public struct AbstractInterpreter {
             
         case is LoadNull:
             set(instr.output, .undefined)
-            
+
+        case is InterestingOP1:
+            set(instr.output, .undefined)
+
         case let op as CreateObject:
             var properties: [String] = []
             var methods: [String] = []

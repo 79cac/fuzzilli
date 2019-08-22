@@ -141,7 +141,6 @@ let mutators: [Mutator] = [
     // Increase probability of insertion mutator as it tends to produce invalid samples more frequently.
     InsertionMutator(),
     InsertionMutator(),
-    
     OperationMutator(),
     InputMutator(),
     SpliceMutator(),

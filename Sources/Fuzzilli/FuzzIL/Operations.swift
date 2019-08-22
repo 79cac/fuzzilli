@@ -726,6 +726,13 @@ class EnumerateBuiltins: InternalOperation, TypeIdentifiable {
     }
 }
 
+class InterestingOP1: Operation, TypeIdentifiable {
+    static let typeId = 64
+    init() {
+        super.init(numInputs: 0, numOutputs: 1)
+    }
+}
+
 // Expose the name of an operation as instance and class variable
 extension Operation {
     var name: String {

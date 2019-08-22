@@ -307,7 +307,7 @@ public class ProgramBuilder {
         IntegerLiteralGenerator,
         FloatLiteralGenerator,
         StringLiteralGenerator,
-        BooleanLiteralGenerator
+        BooleanLiteralGenerator,
     ]
     
     /// Generates random code at the current position.
@@ -350,7 +350,7 @@ public class ProgramBuilder {
             inouts.append(nextVariable())
         }
         let instruction = Instruction(operation: operation, inouts: inouts)
-        internalAppend(instruction)
+        internalAppend(instruction)     
         return instruction
     }
     
@@ -384,6 +384,11 @@ public class ProgramBuilder {
         return perform(LoadNull()).output
     }
     
+    @discardableResult
+    public func InterestingOP() -> Variable {
+        return perform(InterestingOP1()).output
+    }
+
     @discardableResult
     public func createObject(with initialProperties: [String: Variable]) -> Variable {
         return perform(CreateObject(propertyNames: Array(initialProperties.keys)), withInputs: Array(initialProperties.values)).output
@@ -659,7 +664,7 @@ public class ProgramBuilder {
         assert(!instruction.inouts.contains(where: { $0.number >= numVariables }))
         
         program.append(instruction)
-        
+
         // Update our analysis
         if fuzzer.config.useAbstractInterpretation {
             interpreter.execute(program.lastInstruction)
@@ -668,6 +673,7 @@ public class ProgramBuilder {
             // we still need to track Phi variables to be able to produce valid programs.
             interpreter.setType(of: instruction.output, to: .phi(of: .anything))
         }
+
         scopeAnalyzer.analyze(program.lastInstruction)
         contextAnalyzer.analyze(program.lastInstruction)
         updateConstantPool(instruction.operation)

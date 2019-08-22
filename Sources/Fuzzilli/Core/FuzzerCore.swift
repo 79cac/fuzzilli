@@ -132,7 +132,7 @@ public class FuzzerCore: ComponentBase {
     func fuzzOne() {
         var parent = prepareForMutation(fuzzer.corpus.randomElement())
         var program = Program()
-        
+
         for _ in 0..<numConsecutiveMutations {
             var mutator = chooseUniform(from: mutators)
             var mutated = false
@@ -150,9 +150,9 @@ public class FuzzerCore: ComponentBase {
                 logger.warning("Could not mutate sample, giving up. Sampe:\n\(fuzzer.lifter.lift(parent))")
                 program = parent
             }
-    
+
             fuzzer.events.ProgramGenerated.dispatch(with: program)
-            
+
             let execution = fuzzer.execute(program)
             
             switch execution.outcome {
@@ -222,7 +222,7 @@ public class FuzzerCore: ComponentBase {
             // Imported samples are already minimized.
             return fuzzer.events.InterestingProgramFound.dispatch(with: (program, isImported))
         }
-        let minimizedProgram = fuzzer.minimizer.minimize(program, withAspects: aspects, usingMode: .normal)
+        let minimizedProgram = fuzzer.minimizer.minimize(program, withAspects: aspects, usingMode: .normal)       
         fuzzer.events.InterestingProgramFound.dispatch(with: (minimizedProgram, isImported))
     }
     
@@ -241,7 +241,7 @@ public class FuzzerCore: ComponentBase {
     
     private func makePrefix() -> Program {
         let b = fuzzer.makeBuilder()
-        
+
         for generator in programPrefixGenerators {
             b.run(generator)
         }

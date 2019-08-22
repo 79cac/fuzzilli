@@ -380,7 +380,10 @@ public class JavaScriptLifter: ComponentBase, Lifter {
                 
             case is ThrowException:
                 w.emit("throw \(input(0));")
-                
+
+            case is InterestingOP1:
+                w.emit("(123123)[456456];")
+
             case is Print:
                 w.emit("fuzzilli('FUZZILLI_PRINT', \(input(0)));")
                 

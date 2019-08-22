@@ -27,10 +27,11 @@ fileprivate func ForceFTLCompilationGenerator(_ b: ProgramBuilder) {
     let f = b.randVar(ofType: .function())
     let arguments = b.generateCallArguments(for: f)
     
-    b.forLoop(b.loadInt(0), .lessThan, b.loadInt(100), .Add, b.loadInt(1)) { _ in
+    b.forLoop(b.loadInt(0), .lessThan, b.loadInt(1000), .Add, b.loadInt(1)) { _ in
         b.callFunction(f, withArgs: arguments)
     }
 }
+
 
 let jscProfile = Profile(
     processArguments: ["--validateOptions=true",
@@ -65,8 +66,9 @@ let jscProfile = Profile(
     crashTests: ["fuzzilli('FUZZILLI_CRASH', 0)", "fuzzilli('FUZZILLI_CRASH', 1)", "fuzzilli('FUZZILLI_CRASH', 2)"],
 
     additionalCodeGenerators: WeightedList<CodeGenerator>([
-        (ForceDFGCompilationGenerator, 5),
-        (ForceFTLCompilationGenerator, 5),
+        (ForceDFGCompilationGenerator, 10),
+        (ForceFTLCompilationGenerator, 10),
+        (InterestingGenerator,         10),
     ]),
         
     additionalBuiltins: [

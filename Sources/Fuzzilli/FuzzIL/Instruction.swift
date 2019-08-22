@@ -332,6 +332,7 @@ public struct Instruction: Codable {
              is BeginTry,
              is BeginCatch,
              is EndTryCatch,
+             is InterestingOP1,
              is ThrowException:
             break
         default:
@@ -489,6 +490,8 @@ public struct Instruction: Codable {
             self.operation = EndTryCatch()
         case ThrowException.typeId:
             self.operation = ThrowException()
+        case InterestingOP1.typeId:
+            self.operation = InterestingOP1()
         default:
             throw DecodingError.unknownOperationError("Unexpected operation type: \(opName)")
         }
