@@ -132,7 +132,7 @@ public class FuzzerCore: ComponentBase {
     func fuzzOne() {
         var parent = prepareForMutation(fuzzer.corpus.randomElement())
         var program = Program()
-
+        
         for _ in 0..<numConsecutiveMutations {
             var mutator = chooseUniform(from: mutators)
             var mutated = false
@@ -222,7 +222,7 @@ public class FuzzerCore: ComponentBase {
             // Imported samples are already minimized.
             return fuzzer.events.InterestingProgramFound.dispatch(with: (program, isImported))
         }
-        let minimizedProgram = fuzzer.minimizer.minimize(program, withAspects: aspects, usingMode: .normal)       
+        let minimizedProgram = fuzzer.minimizer.minimize(program, withAspects: aspects, usingMode: .normal)
         fuzzer.events.InterestingProgramFound.dispatch(with: (minimizedProgram, isImported))
     }
     

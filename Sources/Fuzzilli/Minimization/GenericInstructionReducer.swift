@@ -16,7 +16,7 @@
 struct GenericInstructionReducer: Reducer {
     func reduce(_ program: Program, with verifier: ReductionVerifier) -> Program {
         for instr in program.reversed() {
-            if !instr.isSimple || instr.operation is Nop || instr.operation is InterestingOP1{
+            if !instr.isSimple || instr.operation is Nop {
                 continue
             }
             
